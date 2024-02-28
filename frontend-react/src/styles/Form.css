@@ -1,0 +1,42 @@
+.container {
+    background-color: rgba(227, 226, 226, 0.992);
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    padding-bottom: 20px; /* Espacio vertical entre los elementos hijos */
+
+    @media (max-width: 908px) {
+        width: 80%;
+        
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
+        
+    }
+    
+}
+
+.container > * {
+    margin: auto;
+    width: 80%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+    font-size: 3.2vh;
+
+}
+
+.littleInputs {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.littleInputs > * {
+    font-size: 3vh;
+}
