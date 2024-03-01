@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import '../styles/Form.css'
 import { Input } from './Input'
-import { SubmitButton } from './SubmitButton'
 import { requestTrip } from '../api/php_server_requests'
 
 export const Form = () => {

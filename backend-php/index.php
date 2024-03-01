@@ -30,32 +30,18 @@ $database_database = 'trips';
 
 
 
-$servername = "localhost";
-$username = "root";
-$password = "root123";
+// $servername = "localhost";
+// $username = "root";
+// $password = "root123";
 
-try {
-  $conn = new PDO("mysql:host=$servername;dbname=trips", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "Connected successfully";
-} catch(PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// try {
+//   $conn = new PDO("mysql:host=$servername;dbname=trips", $username, $password);
+//   // set the PDO error mode to exception
+//   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//   echo "Connected successfully";
+// } catch(PDOException $e) {
+//   echo "Connection failed: " . $e->getMessage();
+// }
 
 // Función para manejar las peticiones GET
 function handleRequest($requestUri) {
@@ -113,17 +99,25 @@ function handlePostRequest($requestUri) {
 // Obtén la ruta de la solicitud actual
 $requestUri = $_SERVER['REQUEST_URI'];
 
-// Manejar la solicitud POST
-if (handlePostRequest($requestUri) === false) {
+// Verificar si la solicitud es de tipo GET
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    handleRequest($_SERVER['REQUEST_URI']);
+}
+else if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+    // Manejar la solicitud POST
+    if (handlePostRequest($requestUri) === false) {
 
     // Si no se encontró una ruta personalizada, sirve el archivo solicitado
-    $filePath = __DIR__ . $requestUri;
-    if (is_file($filePath)) {
-        return false;
-    } else {
-        echo "404 - Recurso no encontrado";
+        $filePath = __DIR__ . $requestUri;
+        if (is_file($filePath)) {
+            return false;
+        } else {
+            echo "404 - Recurso no encontrado";
+        }
     }
 }
+
 
 // Ejecuta el servidor
 exec("php -S $host:$port index.php");
