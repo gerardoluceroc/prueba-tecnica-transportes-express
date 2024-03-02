@@ -1,0 +1,45 @@
+#Consulta 1
+SELECT DISTINCT tm_ticket.tick_id, tm_ticket.usu_id, tm_ticket.cat_id, tm_categoria.cat_nom, tm_ticket.*
+FROM tm_ticket
+INNER JOIN tm_categoria ON tm_ticket.cat_id = tm_categoria.cat_id
+
+
+
+#Consulta 2
+SELECT tm_ticket.*
+FROM tm_ticket
+JOIN tm_empresas ON tm_ticket.emp_id = tm_empresas.emp_id
+WHERE tm_empresas.emp_nom = 'Administración comercial derco'
+AND MONTH(tm_ticket.fech_crea) = 2;
+
+#Consulta 3
+SELECT tm_ticket.*
+FROM tm_ticket
+JOIN tm_usuario ON tm_ticket.usu_id = tm_usuario.usu_id
+WHERE tm_usuario.usu_nom = 'Giovanni Corvalan';
+
+
+#Consulta 4
+SELECT tm_ticket.*, total_valor
+FROM tm_ticket
+JOIN tm_usuario ON tm_ticket.usu_id = tm_usuario.usu_id
+JOIN (SELECT SUM(tick_valor) AS total_valor 
+      FROM tm_ticket 
+      JOIN tm_usuario ON tm_ticket.usu_id = tm_usuario.usu_id 
+      WHERE tm_usuario.usu_nom = 'Sebastián Riquelme' AND prio_id != 1) AS subquery
+WHERE tm_usuario.usu_nom = 'Sebastián Riquelme';
+
+
+#Consulta 5.1 (Total General)
+SELECT SUM(tm_ticket.tick_valor) AS total_valor
+FROM tm_ticket
+JOIN tm_usuario ON tm_ticket.usu_id = tm_usuario.usu_id
+WHERE tm_usuario.usu_nom = 'Sebastian Riquelme'
+AND tm_ticket.prio_id != 1;
+
+#Consulta 5.2 (Total Ecommerce)
+SELECT SUM(tm_ticket.tick_valor) AS total_valor
+FROM tm_ticket
+JOIN tm_usuario ON tm_ticket.usu_id = tm_usuario.usu_id
+WHERE tm_usuario.usu_nom = 'Sebastian Riquelme'
+AND tm_ticket.prio_id = 1;

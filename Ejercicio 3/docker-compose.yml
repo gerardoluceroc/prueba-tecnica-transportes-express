@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db_prueba_tecnica
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: pruebatecnica
+    volumes:
+      - ./pruebatecnica.sql:/docker-entrypoint-initdb.d/pruebatecnica.sql
+    ports:
+      - "3306:3306"
+
